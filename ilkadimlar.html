@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İlk Adımlar - Çocuk Gelişimi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            animation: slideDown 1s ease-out;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "👶";
+            font-size: 32px;
+            animation: bounce 2s infinite;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            font-size: 2rem;
+            animation-delay: -1s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            font-size: 1.5rem;
+            animation-delay: -3s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 30%;
+            left: 20%;
+            font-size: 2.5rem;
+            animation-delay: -5s;
+        }
+
+        /* Articles Section */
+        .articles-section {
+            padding: 100px 20px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            animation: cardSlideIn 1s ease-out;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .article-content {
+            padding: 25px;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            padding: 80px 20px;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .newsletter-button {
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-button:hover {
+            background: #764ba2;
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(-10px) rotate(240deg);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+            to {
+                text-shadow: 2px 2px 20px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Interactive Elements */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">İlk Adımlar</a>
+            <ul class="nav-menu">
+                <li><a href="#anasayfa">Ana Sayfa</a></li>
+                <li><a href="#makaleler">Makaleler</a></li>
+                <li><a href="#uzmanlar">Uzmanlar</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="anasayfa">
+        <div class="floating-element">🎈</div>
+        <div class="floating-element">🧸</div>
+        <div class="floating-element">🌟</div>
+        
+        <div class="hero-content">
+            <h1>Çocuğunuzun Gelişimi İçin</h1>
+            <p>Uzman görüşleri, pratik ipuçları ve bilimsel araştırmalarla çocuk gelişiminin her aşamasında yanınızdayız</p>
+            <a href="#makaleler" class="cta-button pulse">Makaleleri Keşfet</a>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles-section" id="makaleler">
+        <div class="container">
+            <h2 class="section-title">Son Makaleler</h2>
+            
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-image">👶</div>
+                    <div class="article-content">
+                        <h3 class="article-title">0-12 Ay Bebek Gelişimi</h3>
+                        <p class="article-excerpt">Bebeğinizin ilk yılındaki fiziksel, bilişsel ve duygusal gelişim aşamaları hakkında kapsamlı rehber.</p>
+                        <div class="article-meta">
+                            <span>Dr. Ayşe Demir</span>
+                            <a href="#" class="read-more">Devamını Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🎨</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Yaratıcılığı Geliştiren Aktiviteler</h3>
+                        <p class="article-excerpt">Çocuğunuzun yaratıcılığını destekleyecek eğlenceli ve eğitici etkinlik önerileri.</p>
+                        <div class="article-meta">
+                            <span>Psikolog Mehmet Kaya</span>
+                            <a href="#" class="read-more">Devamını Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">📚</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Dil Gelişimi ve Okuma</h3>
+                        <p class="article-excerpt">Çocuklarda dil gelişimini destekleme yöntemleri ve erken okuma becerileri.</p>
+                        <div class="article-meta">
+                            <span>Dil Terapisti Fatma Öz</span>
+                            <a href="#" class="read-more">Devamını Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🤝</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Sosyal Beceriler</h3>
+                        <p class="article-excerpt">Çocuğunuzun sosyal becerilerini geliştirmek için pratik öneriler ve oyunlar.</p>
+                        <div class="article-meta">
+                            <span>Uzm. Dr. Ali Yılmaz</span>
+                            <a href="#" class="read-more">Devamını Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">😴</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Sağlıklı Uyku Düzeni</h3>
+                        <p class="article-excerpt">Çocuklarda sağlıklı uyku alışkanlıkları kazandırma rehberi.</p>
+                        <div class="article-meta">
+                            <span>Dr. Zeynep Arslan</span>
+                            <a href="#" class="read-more">Devamını Oku →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">🏃</div>
+                    <div class="article-content">
+                        <h3 class="article-title">Fiziksel Gelişim</h3>
+                        <p class="article-excerpt">Çocuklarda motor beceriler ve fiziksel gelişimi destekleme yöntemleri.</p>
+                        <div class="article-meta">
+                            <span>Fizyoterapist Can Demir</span>
+                            <a href="#" class="read-more">Devamını Oku →</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Neden Bizi Seçmelisiniz?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">👨‍⚕️</span>
+                    <h3 class="feature-title">Uzman Kadro</h3>
+                    <p>Alanında uzman doktor, psikolog ve terapistlerimizden bilimsel destekli içerikler</p>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">📖</span>
+                    <h3 class="feature-title">Güncel İçerik</h3>
+                    <p>Son araştırmalar ışığında sürekli güncellenen makale ve rehberler</p>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <h3 class="feature-title">Kişiselleştirilmiş</h3>
+                    <p>Çocuğunuzun yaşına ve ihtiyaçlarına özel öneriler ve aktiviteler</p>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">💬</span>
+                    <h3 class="feature-title">Topluluk</h3>
+                    <p>Diğer ebeveynlerle deneyim paylaşımı ve uzman desteği</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Yeni Makalelerden Haberdar Olun</h2>
+            <p>E-posta adresinizi girin, yeni içeriklerimizi kaçırmayın!</p>
+            
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="E-posta adresiniz...">
+                <button type="submit" class="newsletter-button">Abone Ol</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 İlk Adımlar. Tüm hakları saklıdır. Çocuk gelişimi yolculuğunuzda yanınızdayız.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Newsletter form submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.newsletter-input').value;
+            if (email) {
+                alert('Teşekkürler! E-posta adresiniz kaydedildi.');
+                this.querySelector('.newsletter-input').value = '';
+            }
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'cardSlideIn 0.8s ease-out';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.article-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
